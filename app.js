@@ -1,29 +1,39 @@
-//  function secondValue(arr: any):any
-// returning the second and second to last value
+// Return number with the most repeats
+
+//   if two numbers are repeated, return the first one
+//  if none are repeated return -1
 
 
-function secondValue(arr) {
-let values = [...new Set(arr)].sort((a,b)=> a-b);
+function testRepeat(arr) {
+let max = 1;
+let position = 0;
+let value = -1;
 
-    if(values.length < 2){
-        return `${values[0]}`
 
-    }
-    else if (values.length === 2) {
-        return `${values[0]} ${values[1]}`;
-    }
-    else{
-        return `${values[1]} ${values[values.length - 2]}`
-    }
-        
+    let tempNumbers = arr.reduce((acc, curr, index) => {
+        acc[curr] = acc[curr] ? {
+            ...acc[curr],
+            amount: acc[curr]['amount'] + 1
+        } : {
+            amount: 1,
+            index
+        };
+        let amount = acc[curr].amount;
+        let place = acc[curr].index;
+        if(amount > max || (amount === max && place <= position && amount > 1 )) {
+            max = amount;
+            value = curr;
+            position = place;
+        }
+       
 
+
+        return acc;
+    }, {});
+    return value;
 }
 
-console.log(secondValue([1]));
-// 1
-console.log(secondValue([4,2]));
-//  2, 4
-console.log(secondValue([11,44, 22]));
-// 11,22,44 === 22
-console.log(secondValue([3,2,88,3,-11,67,7]));
-// -11,2,3,7,67 === 2,67
+
+console.log(testRepeat([5, 2, 2, 1, 5]));
+console.log(testRepeat([6, 5, 5, 10, 10, 10]));
+console.log(testRepeat([3, 4, 1, 6, 10]));

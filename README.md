@@ -1,3 +1,4 @@
-# JS finding the second and second to last number of an array 
+ # Return number with the most repeats JS
 
-- using set() and .sort
+ - if two numbers are repeated, return the first one
+ - if none are repeated return -1
